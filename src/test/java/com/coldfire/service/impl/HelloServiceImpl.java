@@ -14,10 +14,8 @@ public class HelloServiceImpl implements HelloService{
 
     private String text;
 
-    private Person person;
-
     @Override
     public String sayHello(String name){
-        return name+" say "+text +" to "+person.getName();
+        return name+" say "+text;
     }
 }
