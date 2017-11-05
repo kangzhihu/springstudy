@@ -1,5 +1,6 @@
 package com.coldfire.service.impl;
 
+import com.coldfire.model.Person;
 import com.coldfire.service.HelloService;
 
 /**
@@ -11,8 +12,12 @@ import com.coldfire.service.HelloService;
  */
 public class HelloServiceImpl implements HelloService{
 
+    private String text;
+
+    private Person person;
+
     @Override
     public String sayHello(String name){
-        return name+" say hello!";
+        return name+" say "+text +" to "+person.getName();
     }
 }

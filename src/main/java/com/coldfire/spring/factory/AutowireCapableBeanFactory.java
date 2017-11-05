@@ -1,6 +1,9 @@
 package com.coldfire.spring.factory;
 
 import com.coldfire.spring.BeanDefinition;
+import com.coldfire.spring.model.PropertyValue;
+
+import java.lang.reflect.Field;
 
 /**
  * Author: zhihu.kang<br/>
@@ -11,13 +14,22 @@ import com.coldfire.spring.BeanDefinition;
  */
 public class AutowireCapableBeanFactory extends AbstractBeanFactory {
     @Override
-    protected Object doCreateBean(BeanDefinition beanDefinition) {
-        try{
-            Object bean = beanDefinition.getBeanClass().newInstance();
-            return bean;
-        }catch (Exception e){
-            e.printStackTrace();
+    protected Object doCreateBean(BeanDefinition beanDefinition) throws Exception {
+        Object bean = createBeanInstance(beanDefinition);
+        applyPropertyValues(bean, beanDefinition);
+        return bean;
+    }
+
+    protected Object createBeanInstance(BeanDefinition beanDefinition) throws Exception {
+        return beanDefinition.getBeanClass().newInstance();
+    }
+
+    //根据配置，设置当前bean的属性
+    protected void applyPropertyValues(Object bean, BeanDefinition mbd) throws Exception {
+        for(PropertyValue propertyValue:mbd.getPropertyValues().getPropertyValues()){
+            Field field = mbd.getBeanClass().getDeclaredField(propertyValue.getName());
+            field.setAccessible(true);
+            field.set(bean,propertyValue.getValue());
         }
-        return null;
     }
 }

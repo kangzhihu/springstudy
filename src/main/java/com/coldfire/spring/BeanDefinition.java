@@ -1,5 +1,7 @@
 package com.coldfire.spring;
 
+import com.coldfire.spring.model.PropertyValues;
+
 /**
  * Author: zhihu.kang<br/>
  * Data: 2017-10-08&nbsp;17:21<br/>
@@ -17,6 +19,9 @@ public class BeanDefinition {
 
     //类名
     private String beanClassName;
+
+    //属性
+    private PropertyValues pv;
 
     public BeanDefinition() {
     }
@@ -50,5 +55,13 @@ public class BeanDefinition {
 
     public void setBean(Object bean) {
         this.bean = bean;
+    }
+
+    public PropertyValues getPropertyValues() {
+        return pv;
+    }
+
+    public void setPropertyValues(PropertyValues pv) {
+        this.pv = pv;
     }
 }
